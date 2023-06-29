@@ -12,8 +12,8 @@ parser.add_argument("--pka_precision", help="training set filename, type: .pkl")
 args = parser.parse_args()
 
 mol = Chem.MolFromSmiles(args.smiles)
-print(args.smiles)
-print(mol)
+# print(args.smiles)
+# print(mol)
 mol = run_with_mol_list(
     [mol],
     min_ph=float(args.min_ph),

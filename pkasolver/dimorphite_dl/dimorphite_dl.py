@@ -74,8 +74,8 @@ def main(params=None):
     parser = ArgParseFuncs.get_args()
     args = vars(parser.parse_args())
 
-    if not args["silent"]:
-        print_header()
+    # if not args["silent"]:
+    #     print_header()
 
     # Add in any parameters in params.
     if params is not None:
@@ -104,8 +104,9 @@ def main(params=None):
             return list(Protonate(args))
         else:
             # No output file specified. Just print it to the screen.
-            for protonated_smi in Protonate(args):
-                print(protonated_smi)
+            pass
+            # for protonated_smi in Protonate(args):
+            #     print(protonated_smi)
 
 
 class MyParser(argparse.ArgumentParser):
