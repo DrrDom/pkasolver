@@ -22,6 +22,7 @@ from pkasolver.data import (
 )
 from pkasolver.ml import dataset_to_dataloader
 from pkasolver.ml_architecture import GINPairV1
+from pkasolver import run_with_mol_list
 
 
 @dataclass
@@ -177,32 +178,12 @@ def _call_dimorphite_dl(
     mol: Chem.Mol, min_ph: float, max_ph: float, pka_precision: float = 1.0
 ):
     """calls  dimorphite_dl with parameters"""
-    import subprocess
-
-    # get path to script
-    path_to_script = path.dirname(__file__)
-    smiles = Chem.MolToSmiles(mol, isomericSmiles=True)
-    # save properties
-    props = mol.GetPropsAsDict()
-
-    o = subprocess.run(
-        [
-            "python",
-            f"{path_to_script}/scripts/call_dimorphite_dl.py",
-            "--smiles",  # only most probable tautomer generated
-            f"{smiles}",  # don't adjust the ionization state of the molecule
-            "--min_ph",
-            f"{min_ph}",
-            "--max_ph",
-            f"{max_ph}",
-            "--pka_precision",
-            f"{pka_precision}",
-        ],
-        stderr=subprocess.STDOUT,
+    mols = run_with_mol_list(
+        [mol],
+        min_ph=min_ph,
+        max_ph=max_ph,
+        pka_precision=pka_precision,
     )
-    o.check_returncode()
-    # get list of smiles
-    mols = _parse_dimorphite_dl_output()
     return mols
 
 
