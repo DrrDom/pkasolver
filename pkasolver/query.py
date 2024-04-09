@@ -22,8 +22,8 @@ from pkasolver.data import (
 )
 from pkasolver.ml import dataset_to_dataloader
 from pkasolver.ml_architecture import GINPairV1
-from pkasolver import run_with_mol_list
 
+from dimorphite_dl.dimorphite_dl import run_with_mol_list
 
 @dataclass
 class States:
